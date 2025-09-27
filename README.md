@@ -23,7 +23,6 @@ A **comprehensive full-stack web application** for managing student profiles wit
    ```
 
 2. **Run the installation wizard**
-<<<<<<< HEAD
    - Navigate to `http://localhost/install.php`
    - Follow the step-by-step installation process
    - Configure your database and admin account
@@ -31,70 +30,6 @@ A **comprehensive full-stack web application** for managing student profiles wit
 3. **Access the application**
    - Default admin login: `admin` / `[your-password]`
    - Start managing student profiles!
-
-## ✨ Features
-
-### 🔐 Core Features
-- **Secure Authentication** - Password hashing, session management, remember me
-- **Student Profiles** - Complete CRUD with image upload and validation
-- **Admin Panel** - Advanced search, filtering, bulk operations
-- **Audit Logging** - Track all changes with detailed logs
-- **Responsive UI** - Dark-themed, mobile-first design
-
-### 🎯 Advanced Features
-- **Progressive Web App (PWA)** - Install on mobile devices
-- **Offline Support** - View cached content without internet
-- **Data Export** - Download personal data in JSON format
-- **Security Features** - CSRF protection, XSS prevention, secure cookies
-- **Real-time Updates** - AJAX-powered dynamic content
-
-### 🔮 Future Features (Phases 4-12)
-- Two-factor authentication (2FA)
-- Password breach checking via HaveIBeenPwned
-- Face recognition login
-- OAuth SSO (Google/Microsoft)
-- Analytics dashboard with charts
-- Voice commands and AR features
-- AI-powered duplicate detection
-- Collaborative editing
-
-## 🛠 Technology Stack
-
-### Backend
-- **PHP 7.4+/8.x** - Server-side logic
-- **MySQL 8.0+** - Database
-- **PDO** - Secure database operations
-- **Session Management** - Secure user sessions
-
-### Frontend
-- **Vanilla JavaScript (ES6+)** - No framework dependencies
-- **Responsive CSS** - Dark theme with CSS variables
-- **PWA Support** - Service worker, manifest, offline caching
-- **Modern APIs** - Fetch, WebSocket, IndexedDB
-
-### Security
-- **Password Hashing** - `password_hash()` with bcrypt
-- **CSRF Protection** - Token-based request validation
-- **XSS Prevention** - Input sanitization and output escaping
-- **SQL Injection Prevention** - Prepared statements only
-- **Secure Cookies** - HttpOnly, Secure, SameSite flags
-
-## 📁 Project Structure
-
-```
-=======
-
-Navigate to http://localhost/install.php
-
-Follow the step-by-step installation process
-
-Configure your database and admin account
-
-3. **Access the application**
-
-Default admin login: admin / [your-password]
-
-Start managing student profiles!
 
 ## ✨ Features
 # 🔐 Core Features
@@ -176,13 +111,11 @@ Secure cookies (HttpOnly, Secure, SameSite)
 # 📁 Project Structure
 
 ```bash
->>>>>>> origin/main
 student-profile-management/
 ├── assets/
 │   ├── css/style.css          # Main stylesheet
 │   └── icons/                 # PWA icons
 ├── config/
-<<<<<<< HEAD
 │   ├── app.php               # Application configuration
 │   └── database.php          # Database connection
 ├── database/
@@ -258,7 +191,6 @@ student-profile-management/
 ## 🔒 Security Features
 
 ### Authentication Security
-=======
 │   ├── app.php                # Application configuration
 │   └── database.php           # Database connection
 ├── database/
@@ -285,12 +217,9 @@ student-profile-management/
 # 🗄 Database Schema
 ## Core Tables
 
-<<<<<<< HEAD
 ## 🗄 Database Schema
 # Core Tables
 
-=======
->>>>>>> c5f2057d30a932979dfb54ec732040cbed16edfd
 users – authentication + basic info
 
 profiles – student profile data
@@ -305,13 +234,11 @@ activity_logs – user activity
 
 backups – system backups
 
-<<<<<<< HEAD
 # Security Tables
 
 two_factor_codes – 2FA verification codes
 
 consent_flags – GDPR compliance tracking
-=======
 ## Security Tables
 
 two_factor_codes – 2FA verification codes
@@ -360,13 +287,11 @@ Configure SSL/HTTPS for production
 
 # 🔒 Security
 - ✅ Password hashing with bcrypt
->>>>>>> origin/main
 - ✅ Password hashing with bcrypt
 - ✅ Session regeneration on login
 - ✅ Account lockout after failed attempts
 - ✅ Secure remember me tokens
 - ✅ CSRF token validation
-<<<<<<< HEAD
 
 ### Data Protection
 - ✅ SQL injection prevention (prepared statements)
@@ -492,7 +417,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Built with ❤️ for educational institutions worldwide**
-=======
 - ✅ SQLi & XSS prevention
 - ✅ Secure file upload validation
 - ✅ GDPR-compliant data handling
@@ -571,5 +495,4 @@ Licensed under the MIT License – see LICENSE
 👉 Do you want me to also generate a **`.gitattributes` file** so Git enforces LF endings for `.md`, `.php`, `.js`, `.css` files and you never get mixed line ending errors again?
 ```
 
->>>>>>> origin/main
->>>>>>> c5f2057d30a932979dfb54ec732040cbed16edfd
+
