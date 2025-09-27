@@ -112,7 +112,7 @@ class Auth {
             
             // Update last login
             $stmt = $this->db->getConnection()->prepare("
-                UPDATE users SET last_login = datetime('now') WHERE id = ?
+                UPDATE users SET last_login = NOW() WHERE id = ?
             ");
             $stmt->execute([$user['id']]);
             
@@ -162,7 +162,7 @@ class Auth {
                 SELECT rt.user_id, u.username, u.email, u.first_name, u.last_name, u.role, u.is_active
                 FROM remember_tokens rt
                 JOIN users u ON rt.user_id = u.id
-                WHERE rt.token_hash = ? AND rt.expires_at > datetime('now') AND u.is_active = 1
+                WHERE rt.token_hash = ? AND rt.expires_at > NOW() AND u.is_active = 1
             ");
             $stmt->execute([$tokenHash]);
             $user = $stmt->fetch();
@@ -170,7 +170,7 @@ class Auth {
             if ($user) {
                 // Update token usage
                 $stmt = $this->db->getConnection()->prepare("
-                    UPDATE remember_tokens SET last_used_at = datetime('now') WHERE token_hash = ?
+                    UPDATE remember_tokens SET last_used_at = NOW() WHERE token_hash = ?
                 ");
                 $stmt->execute([$tokenHash]);
                 
@@ -258,7 +258,7 @@ class Auth {
                 UPDATE users 
                 SET failed_login_attempts = failed_login_attempts + 1,
                     locked_until = CASE 
-                        WHEN failed_login_attempts + 1 >= ? THEN datetime('now', '+' || ? || ' seconds')
+                        WHEN failed_login_attempts + 1 >= ? THEN DATE_ADD(NOW(), INTERVAL ? SECOND)
                         ELSE locked_until
                     END
                 WHERE id = ?
@@ -292,7 +292,7 @@ class Auth {
         try {
             $stmt = $this->db->getConnection()->prepare("
                 SELECT locked_until FROM users 
-                WHERE (username = ? OR email = ?) AND locked_until > datetime('now')
+                WHERE (username = ? OR email = ?) AND locked_until > NOW()
             ");
             $stmt->execute([$username, $username]);
             return $stmt->fetch() !== false;

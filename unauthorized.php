@@ -21,6 +21,41 @@ if (!isAuthenticated()) {
     <meta name="theme-color" content="#0a0a0a">
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navigation" role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="dashboard.php" class="navbar-brand">
+                    <div class="logo">
+                        <div class="logo-icon">🎓</div>
+                        <?php echo APP_NAME; ?>
+                    </div>
+                </a>
+                
+                <ul class="navbar-nav d-flex">
+                    <li class="nav-item">
+                        <a href="dashboard.php" class="nav-link">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile.php" class="nav-link">Profile</a>
+                    </li>
+                    <?php if (hasAnyRole(['admin', 'editor'])): ?>
+                    <li class="nav-item">
+                        <a href="admin.php" class="nav-link">Admin</a>
+                    </li>
+                    <?php endif; ?>
+                    <li class="nav-item">
+                        <a href="settings.php" class="nav-link">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link logout-link" onclick="window.dashboard.showLogoutConfirmation(); return false;" 
+                           aria-label="Logout from your account">🚪 Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container" style="max-width: 600px; margin: 4rem auto; text-align: center;">
         <div class="card">
             <div class="card-body">
@@ -48,5 +83,14 @@ if (!isAuthenticated()) {
             </div>
         </div>
     </div>
+
+    <!-- ARIA Live Region for Screen Reader Announcements -->
+    <div aria-live="polite" aria-atomic="true" class="sr-only" id="aria-live-region"></div>
+
+    <!-- Notification Container -->
+    <div id="notification-container"></div>
+
+    <!-- JavaScript -->
+    <script src="assets/js/dashboard.js"></script>
 </body>
 </html>

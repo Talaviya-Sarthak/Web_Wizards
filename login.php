@@ -24,6 +24,14 @@ if (isAuthenticated()) {
 $errors = [];
 $success = '';
 
+// Check for logout success message
+if (isset($_SESSION['logout_success'])) {
+    $success = $_SESSION['logout_success'];
+    unset($_SESSION['logout_success']);
+} elseif (isset($_GET['logout']) && $_GET['logout'] === 'success') {
+    $success = 'You have been successfully logged out.';
+}
+
 // Handle login form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!verifyCSRFToken($_POST['csrf_token'] ?? '')) {
