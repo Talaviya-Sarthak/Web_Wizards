@@ -1,7 +1,3 @@
-# Student Profile Management System
-
-A comprehensive full-stack web application for managing student profiles with advanced features including authentication, admin panels, analytics, and modern web technologies.
-
 # 🎓 Student Profile Management System
 
 A **comprehensive full-stack web application** for managing student profiles with advanced features including authentication, admin panels, analytics, and modern web technologies.
@@ -187,6 +183,16 @@ student-profile-management/
    - Point document root to project directory
    - Enable mod_rewrite for Apache
    - Configure SSL/HTTPS for production
+
+## ScreenShots
+<img width="1919" height="930" alt="Screenshot 2025-09-27 164923" src="https://github.com/user-attachments/assets/b0419338-021e-4875-b638-cd0c9c9d04f6" />
+<img width="1884" height="929" alt="Screenshot 2025-09-27 165220" src="https://github.com/user-attachments/assets/25722721-42d1-4a01-b74e-893309d9f69a" />
+<img width="1919" height="933" alt="Screenshot 2025-09-27 165231" src="https://github.com/user-attachments/assets/d6c2c5fe-d753-454d-9ce6-c631ad461142" />
+<img width="1396" height="896" alt="Screenshot 2025-09-27 165203" src="https://github.com/user-attachments/assets/29dc7144-749f-4263-8a0b-277de0656435" />
+<img width="1919" height="932" alt="Screenshot 2025-09-27 165248" src="https://github.com/user-attachments/assets/eba85461-24cb-4adf-b5c9-ca4de10a7df3" />
+<img width="1919" height="930" alt="Screenshot 2025-09-27 165259" src="https://github.com/user-attachments/assets/36f9dd50-dda0-4c9d-b4c3-ea03d5d77e63" />
+<img width="1919" height="940" alt="Screenshot 2025-09-27 165336" src="https://github.com/user-attachments/assets/dcd91e7e-5cbb-4e54-8983-58d2696029e5" />
+<img width="1919" height="928" alt="Screenshot 2025-09-27 165345" src="https://github.com/user-attachments/assets/4fc2aa10-6ab6-4d4d-97a5-51342445319b" />
 
 ## 🔒 Security Features
 - ✅ Password hashing with bcrypt
