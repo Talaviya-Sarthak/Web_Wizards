@@ -3,7 +3,13 @@
 A **comprehensive full-stack web application** for managing student profiles with advanced features including authentication, admin panels, analytics, and modern web technologies.
 
 ---
+# Team Details
+1. Krish Ramanamdi (Leader) | 24dcs107@charusat.edu.in
+2. Tirth Makadia | 24dcs047@charusat.edu.in
+3. Harshit Pambhar | 24dcs060@charusat.edu.in
+4. Sarthak Talaviya | 24dcs131@charusat.edu.in
 
+---
 ## 🚀 Quick Start
 
 1. **Clone the repository**
@@ -134,4 +140,88 @@ student-profile-management/
 ├── export.php                 # Data export
 └── README.md                  # This file
 ```
+# 🗄 Database Schema
+## Core Tables
 
+users – authentication + basic info
+
+profiles – student profile data
+
+audit_logs – change tracking + audit trail
+
+remember_tokens – secure remember me
+
+sessions – session management
+
+activity_logs – user activity
+
+backups – system backups
+
+## Security Tables
+
+two_factor_codes – 2FA verification codes
+
+consent_flags – GDPR compliance tracking
+two_factor_codes – 2FA verification codes
+
+consent_flags – GDPR compliance tracking
+
+tracking
+
+# 🔧 Installation
+Automatic (Recommended)
+
+Run /install.php
+
+Configure database + admin account
+
+Delete install.php after setup ✅
+
+# Manual Setup
+
+## Database
+```sql
+CREATE DATABASE student_profiles;
+USE student_profiles;
+SOURCE database/schema.sql;
+```
+## Environment
+```bash
+cp .env.example .env
+# Edit with DB credentials
+```
+## Permissions
+```bash
+chmod 755 uploads/ backups/
+```
+
+## Web Server
+
+Enable mod_rewrite in Apache
+
+Point document root to project folder
+
+Configure SSL/HTTPS for production
+
+# 🔒 Security
+- ✅ Password hashing with bcrypt
+- ✅ Password hashing with bcrypt
+- ✅ Session regeneration on login
+- ✅ Account lockout after failed attempts
+- ✅ Secure remember me tokens
+- ✅ CSRF token validation
+- ✅ SQLi & XSS prevention
+- ✅ Secure file upload validation
+- ✅ GDPR-compliant data handling
+
+# 📱 PWA Features
+
+- Installable on mobile 📲
+
+- Offline support (service worker)
+
+- Background sync for queued actions
+
+- Push notifications 🔔
+
+- Responsive + mobile-first design
