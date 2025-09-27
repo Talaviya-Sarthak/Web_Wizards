@@ -135,3 +135,25 @@ student-profile-management/
 └── README.md                  # This file
 ```
 
+## 🗄 Database Schema
+# Core Tables
+
+users – authentication + basic info
+
+profiles – student profile data
+
+audit_logs – change tracking + audit trail
+
+remember_tokens – secure remember me
+
+sessions – session management
+
+activity_logs – user activity
+
+backups – system backups
+
+# Security Tables
+
+two_factor_codes – 2FA verification codes
+
+consent_flags – GDPR compliance tracking
