@@ -105,7 +105,7 @@ function updateBasicInfo($db, $data) {
     
     $stmt = $db->getConnection()->prepare("
         UPDATE profiles 
-        SET bio = ?, interests = ?, achievements = ?, updated_at = datetime('now')
+        SET bio = ?, interests = ?, achievements = ?, updated_at = NOW()
         WHERE user_id = ?
     ");
     $stmt->execute([$bio, $interests, $achievements, $_SESSION['user_id']]);
@@ -153,7 +153,7 @@ function updateAcademicInfo($db, $data) {
     $stmt = $db->getConnection()->prepare("
         UPDATE profiles 
         SET student_id = ?, gpa = ?, major = ?, minor = ?, graduation_year = ?, 
-            academic_standing = ?, enrollment_status = ?, updated_at = datetime('now')
+            academic_standing = ?, enrollment_status = ?, updated_at = NOW()
         WHERE user_id = ?
     ");
     $stmt->execute([
@@ -172,7 +172,7 @@ function updateContactInfo($db, $data) {
     
     $stmt = $db->getConnection()->prepare("
         UPDATE profiles 
-        SET phone = ?, address = ?, emergency_contact_name = ?, emergency_contact_phone = ?, updated_at = datetime('now')
+        SET phone = ?, address = ?, emergency_contact_name = ?, emergency_contact_phone = ?, updated_at = NOW()
         WHERE user_id = ?
     ");
     $stmt->execute([$phone, $address, $emergencyContactName, $emergencyContactPhone, $_SESSION['user_id']]);
@@ -211,7 +211,7 @@ function updateProfileImage($db, $files) {
     
     // Update database
     $stmt = $db->getConnection()->prepare("
-        UPDATE profiles SET profile_image = ?, updated_at = datetime('now') WHERE user_id = ?
+        UPDATE profiles SET profile_image = ?, updated_at = NOW() WHERE user_id = ?
     ");
     $stmt->execute([$filename, $_SESSION['user_id']]);
     
@@ -229,33 +229,41 @@ function updateProfileImage($db, $files) {
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0a0a0a">
 </head>
-<body>
-    <!-- Header -->
-    <header class="header">
+<body class="profile-page">
+    <!-- Navigation -->
+    <nav class="navbar" id="navigation" role="navigation" aria-label="Main navigation">
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">🎓</div>
-                    <?php echo APP_NAME; ?>
-                </div>
-                
-                <nav class="nav">
-                    <a href="index.php" class="nav-link">Dashboard</a>
-                    <a href="profile.php" class="nav-link">Profile</a>
-                    <?php if (hasAnyRole(['admin', 'editor'])): ?>
-                    <a href="admin.php" class="nav-link">Admin</a>
-                    <?php endif; ?>
-                    <a href="settings.php" class="nav-link">Settings</a>
-                </nav>
-                
-                <div class="user-menu">
-                    <div class="user-avatar" onclick="toggleUserMenu()">
-                        <?php echo strtoupper(substr($_SESSION['user_first_name'] ?? 'U', 0, 1)); ?>
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="dashboard.php" class="navbar-brand">
+                    <div class="logo">
+                        <div class="logo-icon">🎓</div>
+                        <?php echo APP_NAME; ?>
                     </div>
-                </div>
+                </a>
+                
+                <ul class="navbar-nav d-flex">
+                    <li class="nav-item">
+                        <a href="dashboard.php" class="nav-link">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile.php" class="nav-link" aria-current="page">Profile</a>
+                    </li>
+                    <?php if (hasAnyRole(['admin', 'editor'])): ?>
+                    <li class="nav-item">
+                        <a href="admin.php" class="nav-link">Admin</a>
+                    </li>
+                    <?php endif; ?>
+                    <li class="nav-item">
+                        <a href="settings.php" class="nav-link">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link logout-link" onclick="window.dashboard.showLogoutConfirmation(); return false;" 
+                           aria-label="Logout from your account">🚪 Logout</a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </header>
+    </nav>
 
     <!-- Main Content -->
     <main class="container" style="margin-top: 2rem;">
@@ -400,7 +408,7 @@ function updateProfileImage($db, $files) {
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="academic_standing" class="form-label">Academic Standing</label>
-                                        <select id="academic_standing" name="academic_standing" class="form-control form-select">
+                                        <select id="academic_standing" name="academic_standing" class="form-control">
                                             <option value="excellent" <?php echo ($profile['academic_standing'] ?? '') === 'excellent' ? 'selected' : ''; ?>>Excellent</option>
                                             <option value="good" <?php echo ($profile['academic_standing'] ?? '') === 'good' ? 'selected' : ''; ?>>Good</option>
                                             <option value="satisfactory" <?php echo ($profile['academic_standing'] ?? '') === 'satisfactory' ? 'selected' : ''; ?>>Satisfactory</option>
@@ -411,7 +419,7 @@ function updateProfileImage($db, $files) {
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="enrollment_status" class="form-label">Enrollment Status</label>
-                                        <select id="enrollment_status" name="enrollment_status" class="form-control form-select">
+                                        <select id="enrollment_status" name="enrollment_status" class="form-control">
                                             <option value="active" <?php echo ($profile['enrollment_status'] ?? '') === 'active' ? 'selected' : ''; ?>>Active</option>
                                             <option value="inactive" <?php echo ($profile['enrollment_status'] ?? '') === 'inactive' ? 'selected' : ''; ?>>Inactive</option>
                                             <option value="graduated" <?php echo ($profile['enrollment_status'] ?? '') === 'graduated' ? 'selected' : ''; ?>>Graduated</option>
@@ -515,38 +523,38 @@ function updateProfileImage($db, $files) {
         <?php endif; ?>
     </main>
 
-    <!-- User Menu Dropdown -->
-    <div id="userMenu" class="user-menu-dropdown" style="display: none;">
-        <div class="card" style="position: absolute; top: 100%; right: 0; min-width: 200px; z-index: 1000;">
-            <div class="card-body">
-                <p><strong><?php echo htmlspecialchars($_SESSION['user_first_name'] . ' ' . $_SESSION['user_last_name']); ?></strong></p>
-                <p class="text-muted"><?php echo htmlspecialchars($_SESSION['user_email']); ?></p>
-                <hr style="border-color: var(--border-color);">
-                <a href="profile.php" class="nav-link">My Profile</a>
-                <a href="settings.php" class="nav-link">Settings</a>
-                <a href="logout.php" class="nav-link text-danger">Logout</a>
-            </div>
-        </div>
-    </div>
+    <!-- ARIA Live Region for Screen Reader Announcements -->
+    <div aria-live="polite" aria-atomic="true" class="sr-only" id="aria-live-region"></div>
 
+    <!-- Notification Container -->
+    <div id="notification-container"></div>
+
+    <!-- JavaScript -->
+    <script src="assets/js/dashboard.js"></script>
     <script>
-        function toggleUserMenu() {
-            const menu = document.getElementById('userMenu');
-            menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
-        }
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const userMenu = document.getElementById('userMenu');
-            const userAvatar = document.querySelector('.user-avatar');
-            
-            if (!userAvatar.contains(event.target) && !userMenu.contains(event.target)) {
-                userMenu.style.display = 'none';
-            }
-        });
-
         // Form validation and interactivity
         document.addEventListener('DOMContentLoaded', function() {
+            // Prevent any transform effects on form elements
+            const formElements = document.querySelectorAll('.form-control');
+            formElements.forEach(element => {
+                element.style.transform = 'none';
+                element.style.position = 'relative';
+                element.style.zIndex = '10';
+                element.style.opacity = '1';
+                element.style.background = 'var(--bg-primary)';
+                element.style.color = 'var(--text-primary)';
+                
+                // Ensure textareas work properly
+                if (element.tagName === 'TEXTAREA') {
+                    element.style.minHeight = '100px';
+                    element.style.resize = 'vertical';
+                    element.style.overflow = 'auto';
+                    element.style.fontFamily = 'var(--font-family)';
+                    element.style.lineHeight = '1.5';
+                    element.style.fontSize = '16px';
+                }
+            });
+            
             // GPA validation
             const gpaInput = document.getElementById('gpa');
             if (gpaInput) {
@@ -576,11 +584,59 @@ function updateProfileImage($db, $files) {
             // Form submission feedback
             const forms = document.querySelectorAll('form');
             forms.forEach(form => {
-                form.addEventListener('submit', function() {
+                form.addEventListener('submit', function(e) {
                     const submitBtn = form.querySelector('button[type="submit"]');
                     const originalText = submitBtn.textContent;
                     submitBtn.innerHTML = '<span class="loading"></span> Updating...';
                     submitBtn.disabled = true;
+                    
+                    // Show notification
+                    if (window.dashboard) {
+                        window.dashboard.showNotification('Updating profile...', 'info', 2000);
+                    }
+                });
+            });
+            
+            // Show success notification if profile was updated
+            <?php if (!empty($success)): ?>
+            if (window.dashboard) {
+                window.dashboard.showNotification('<?php echo addslashes($success); ?>', 'success', 3000);
+            }
+            <?php endif; ?>
+            
+            // Show error notifications if there are errors
+            <?php if (!empty($errors)): ?>
+            if (window.dashboard) {
+                <?php foreach ($errors as $error): ?>
+                window.dashboard.showNotification('<?php echo addslashes($error); ?>', 'error', 5000);
+                <?php endforeach; ?>
+            }
+            <?php endif; ?>
+            
+            // Additional textarea fixes
+            const textareas = document.querySelectorAll('textarea.form-control');
+            textareas.forEach(textarea => {
+                // Ensure proper styling on focus
+                textarea.addEventListener('focus', function() {
+                    this.style.background = '#0a0a0a';
+                    this.style.color = '#ffffff';
+                    this.style.opacity = '1';
+                    this.style.borderColor = '#00d4ff';
+                });
+                
+                // Ensure proper styling on blur
+                textarea.addEventListener('blur', function() {
+                    this.style.background = '#0a0a0a';
+                    this.style.color = '#ffffff';
+                    this.style.opacity = '1';
+                    this.style.borderColor = '#333333';
+                });
+                
+                // Ensure proper styling on input
+                textarea.addEventListener('input', function() {
+                    this.style.background = '#0a0a0a';
+                    this.style.color = '#ffffff';
+                    this.style.opacity = '1';
                 });
             });
         });

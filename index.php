@@ -184,7 +184,8 @@ try {
                 <hr style="border-color: var(--border-color);">
                 <a href="profile.php" class="nav-link">My Profile</a>
                 <a href="settings.php" class="nav-link">Settings</a>
-                <a href="logout.php" class="nav-link text-danger">Logout</a>
+                <a href="#" class="nav-link logout-link" onclick="window.dashboard.showLogoutConfirmation(); return false;" 
+                   aria-label="Logout from your account">🚪 Logout</a>
             </div>
         </div>
     </div>
