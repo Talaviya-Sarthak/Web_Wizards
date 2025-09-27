@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - Student Profile Management</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            margin: 0;
+            padding: 2rem;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .offline-container {
+            max-width: 500px;
+        }
+        .offline-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        h1 {
+            color: #00ff88;
+            margin-bottom: 1rem;
+        }
+        p {
+            color: #cccccc;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: #00ff88;
+            color: #000000;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+        .btn:hover {
+            background-color: #00cc6a;
+            transform: translateY(-1px);
+        }
+        .btn-secondary {
+            background-color: #2a2a2a;
+            color: #ffffff;
+        }
+        .btn-secondary:hover {
+            background-color: #333333;
+        }
+        .features {
+            text-align: left;
+            margin: 2rem 0;
+        }
+        .feature {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+            color: #cccccc;
+        }
+        .feature-icon {
+            margin-right: 0.5rem;
+            color: #00ff88;
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">📱</div>
+        <h1>You're Offline</h1>
+        <p>It looks like you're not connected to the internet. Some features may not be available, but you can still view cached content.</p>
+        
+        <div class="features">
+            <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>View cached pages</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>Access your profile data</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>View academic information</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">⚠</span>
+                <span>Some features require internet connection</span>
+            </div>
+        </div>
+        
+        <div>
+            <a href="/" class="btn">Go to Dashboard</a>
+            <a href="/profile.php" class="btn btn-secondary">View Profile</a>
+        </div>
+        
+        <div style="margin-top: 2rem; padding: 1rem; background-color: #1a1a1a; border-radius: 8px;">
+            <h3 style="color: #00ff88; margin-bottom: 1rem;">Offline Features</h3>
+            <p style="color: #cccccc; font-size: 0.9rem;">
+                This PWA (Progressive Web App) allows you to access your student profile information even when offline. 
+                Your data is cached locally and will sync when you're back online.
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Check if we're back online
+        window.addEventListener('online', function() {
+            // Show a notification that we're back online
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background-color: #00ff88;
+                color: #000000;
+                padding: 1rem;
+                border-radius: 8px;
+                z-index: 1000;
+                font-weight: 500;
+            `;
+            notification.textContent = 'You\'re back online!';
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        });
+        
+        // Try to reload the page when back online
+        window.addEventListener('online', function() {
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
