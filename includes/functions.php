@@ -4,6 +4,11 @@
  * Common functions used throughout the application
  */
 
+// Define constants if not already defined
+if (!defined('CSRF_TOKEN_LIFETIME')) {
+    define('CSRF_TOKEN_LIFETIME', 3600);
+}
+
 /**
  * Generate a secure random token
  */
